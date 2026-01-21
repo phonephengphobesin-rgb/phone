@@ -72,3 +72,18 @@ exports.delete = (req, res) => {
         }
     });
 };
+
+exports.delete = (req, res) => {
+
+    category.remove(req.params.id, (error, data) => {
+        if (error) {
+            if (error.kind === "not_found") {
+                res.status(404).send({ message: `category with id ${req.params.id} not found. `});
+            } else {
+                res.status(500).send({ messae: `Could not delete category with id ${req.params.id} `});
+            }
+        } else {
+            res.send({ message: "category was deleted successfully!" });
+        }
+    });
+};
